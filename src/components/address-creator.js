@@ -9,7 +9,7 @@ class AddressCreator {
         this.rng = this.rng.bind(this)
     }
 
-    rng() { ˇ
+    rng() {
         return Buffer.from(this.getEntropy())
     }
 
