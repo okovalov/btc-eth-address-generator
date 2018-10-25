@@ -9,8 +9,8 @@ class AddressCreator {
         this.rng = this.rng.bind(this)
     }
 
-    rng() { 
-        return Buffer.from(this.getEntropy()) 
+    rng() {
+        return Buffer.from(this.getEntropy())
     }
 
     generateBTCAddress() {
@@ -58,4 +58,3 @@ const addressCreator = new AddressCreator(web3, bitcoin)
 export {
     addressCreator
 }
-
