@@ -17,5 +17,5 @@ app.post('/neweth', (req, res) => {
 });
 
 app.listen(port, () => {
-	console.log(`Listenening on port ${port}...`)
+	console.log(`Listenening on port number ${port}...`)
 })
