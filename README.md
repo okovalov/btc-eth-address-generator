@@ -18,6 +18,10 @@ The second step is to start a **node.js** web-server by running `npm start`.
 
 By default the web-server would be availabe on `http://localhost:3000/`
 
+To get a BTC address you need to send a POST call to `http://localhost:3000/newbtc`
+
+To get a ETH address you need to send a POST call to `http://localhost:3000/neweth`
+
 To change the default port, please update "start" and "debug" scripts in the package.json (and replace 3000 with the port you'd like to use)
 
 ###### Copyright Disclaimer
