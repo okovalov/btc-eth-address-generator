@@ -6,7 +6,7 @@ This repository is a small **node.js** project which provides two end-points, by
 
 ## Purpose
 
-There is a lot of different libraries, utilites you could use to get those addresses generated, however I could not find any where this piece of functionality was wrapped and put in place to be available by a single API call, so that is why I decided to create this mini-project mostly for myself, to make my life (when I need to create lots of wallets) a bit more easier.
+There is a lot of different libraries and packages, utilites you could use to get those addresses generated, however I could not find any where this piece of functionality was wrapped and put in place to be available by a single API call, so that is why I decided to create this mini-project mostly for myself, to make my life (when I need to create lots of wallets) a bit more easier.
 
 ## Getting Started
 
