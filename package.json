@@ -1,0 +1,26 @@
+{
+  "name": "coins-wallets",
+  "version": "1.0.0",
+  "description": "Provides a simple way to generate BTC and ETH walletts addresses/priv.keys",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+    "start": "npm run build && node dist/src/index.js 3000",
+    "debug": "nodemon src/index.js --exec babel-node 3000"
+  },
+  "author": "Oleksandr Kovalov",
+  "license": "ISC",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "bitcoinjs-lib": "^4.0.2",
+    "express": "^4.16.4",
+    "rimraf": "^2.6.2",
+    "uuid": "^3.3.2",
+    "web3": "^1.0.0-beta.36"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
+}
