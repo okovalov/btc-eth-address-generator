@@ -80,6 +80,7 @@ class AddressCreator {
             const walletInstance = wallet.wallet
 
             let additionalData = ''
+            const walletId = walletInstance.id()
 
             additionalData += `Wallet ID: ${walletInstance.id()} \n `
             additionalData += `Wallet Label: ${walletInstance.label()} \n `
@@ -99,7 +100,8 @@ class AddressCreator {
             return {
                 address: walletInstance.receiveAddress(),
                 privateKey: node.toWIF(),
-                additionalData
+                additionalData,
+                walletId
             }
         })();
 
