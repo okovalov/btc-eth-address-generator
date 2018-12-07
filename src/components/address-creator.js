@@ -108,23 +108,39 @@ class AddressCreator {
         return promise
     }
 
-    getWalletIndfo() {
+    getBTCWalletInfo(btcWalletId) {
         const bitgo = new this.bitGoJs.BitGo({ env: this.bitGoEnv });
         const coin = this.bitGoCoin;
         const accessToken = this.bitGoToken;
 
-        Promise.coroutine(function *() {
+        const promise = Promise.coroutine(function *() {
             bitgo.authenticateWithAccessToken({ accessToken });
 
-            const id = 'ID_OF_THE_WALLET'
+            const id = btcWalletId
             const wallet = yield bitgo.coin(coin).wallets().get({ id });
+            const walletId = wallet.id();
+            const walletLabel = wallet.label();
+            const walletBalance =  (wallet.balance() / 1e8).toFixed(4);
+            const walletReceiveAddress = wallet.receiveAddress();
 
-            console.log(`Wallet ID: ${wallet.id()}`);
-            console.log(`Wallet label: ${wallet.label()}`);
-            console.log("Balance is: " + (wallet.balance() / 1e8).toFixed(4));
-            console.log(`Receive address: ${wallet.receiveAddress()}`);
+            let additionalData = ''
 
+            additionalData += `Wallet ID: ${walletId} \n `;
+            additionalData += `Wallet label: ${walletLabel} \n `;
+            additionalData += `Balance is:  ${walletBalance} \n `;
+            additionalData += `Receive address: ${walletReceiveAddress} \n `;
+
+            console.log(additionalData)
+
+            return {
+                walletId,
+                walletLabel,
+                walletBalance,
+                walletReceiveAddress
+            }
         })();
+
+        return promise
     }
 
     getEntropy() {

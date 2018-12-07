@@ -25,6 +25,20 @@ app.post('/neweth', (req, res) => {
 	);
 });
 
+app.post('/btcbalance', (req, res) => {
+    const btcWalletId = req.body.btcWalletId
+
+    if (!btcWalletId) {
+        res.json({
+            error: 'bitgo btcWalletId must be provided'
+        })
+    }
+
+    addressCreator.getBTCWalletInfo(btcWalletId).then( function (result)  {
+        res.json(result)
+    })
+});
+
 app.listen(port, () => {
 	console.log(`Listening on port ${port}...`)
 })
