@@ -19,24 +19,7 @@ Parameters:
 #       Type: Canary10Percent5Minutes
 
 Resources:
-  HelloWorldEth:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: index.handler
-      Runtime: nodejs8.10
-      Environment:
-        Variables:
-          NODE_ENV: production
-      Role:
-        Fn::ImportValue:
-          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
-      Events:
-        GetEventETH:
-          Type: Api
-          Properties:
-            Path: /neweth
-            Method: get
-  HelloWorldBtc:
+  BtcNewAddress:
     Type: AWS::Serverless::Function
     Properties:
       Handler: index.handler
@@ -52,4 +35,38 @@ Resources:
           Type: Api
           Properties:
             Path: /newbtc
-            Method: get
+            Method: post
+  BtcWalletBalance:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs8.10
+      Environment:
+        Variables:
+          NODE_ENV: production
+      Role:
+        Fn::ImportValue:
+          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
+      Events:
+        GetEventBtc:
+          Type: Api
+          Properties:
+            Path: /btcbalance
+            Method: post
+  EthWalletBalance:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs8.10
+      Environment:
+        Variables:
+          NODE_ENV: production
+      Role:
+        Fn::ImportValue:
+          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
+      Events:
+        GetEventBtc:
+          Type: Api
+          Properties:
+            Path: /ethbalance
+            Method: post

@@ -1,6 +1,6 @@
 {
-  "name": "express-HelloWorld",
-  "description": "Hello World ExpressJS WebService",
+  "name": "express-crypto-wallets-lambdas",
+  "description": "Crypto Wallets Lambdas ExpressJS WebService",
   "author": "Oleksandr Kovalov",
   "version": "0.0.1",
   "private": true,

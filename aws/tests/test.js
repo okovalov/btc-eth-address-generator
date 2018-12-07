@@ -7,27 +7,28 @@ const app = require('../dist/index.js');
 const request = supertest(app);
 
 describe('Tests app', function() {
-    // it('verifies get', function(done) {
-    //     request.get('/').expect(200).end(function(err, result) {
-    //         test.string(result.body.Output).contains('BTC/ETH');
-    //         test.value(result).hasHeader('content-type', 'application/json; charset=utf-8');
-    //         done(err);
-    //     });
-    // });
-    it('verifies get to newbtc', function(done) {
-        request.get('/newbtc').expect(200).end(function(err, result) {
-            test.value(result.body).hasOwnProperties(['address', 'privateKey', 'additionalData'])
+    it('verifies post to newbtc', function(done) {
+        request.post('/newbtc').expect(200).end(function(err, result) {
+            test.value(result.body).hasOwnProperties(['address', 'privateKey', 'additionalData', 'walletId'])
             test.value(result.body).hasNotOwnProperty('error')
             test.value(result).hasHeader('content-type', 'application/json; charset=utf-8');
             done(err);
         });
     });
-    // it('verifies get to neweth', function(done) {
-    //     request.get('/neweth').expect(200).end(function(err, result) {
-    //         test.value(result.body).hasOwnProperties(['address', 'privateKey'])
-    //         test.value(result.body).hasNotOwnProperty('error')
-    //         test.value(result).hasHeader('content-type', 'application/json; charset=utf-8');
-    //         done(err);
-    //     });
-    // });
+    it('verifies post to ethbalance', function(done) {
+        request.post('/ethbalance').expect(200).end(function(err, result) {
+            test.value(result.body).hasOwnProperties(['ethWalletId', 'balance'])
+            test.value(result.body).hasNotOwnProperty('error')
+            test.value(result).hasHeader('content-type', 'application/json; charset=utf-8');
+            done(err);
+        });
+    });
+    it('verifies post to btcbalance', function(done) {
+        request.post('/btcbalance').expect(200).end(function(err, result) {
+            test.value(result.body).hasOwnProperties(['walletId', 'walletLabel','walletBalance','walletReceiveAddress'])
+            test.value(result.body).hasNotOwnProperty('error')
+            test.value(result).hasHeader('content-type', 'application/json; charset=utf-8');
+            done(err);
+        });
+    });
 });
