@@ -12,17 +12,21 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.post('/newbtc', (req, res) => {
-    addressCreator.generateBTCAddress().then( function (result)  {
-        res.json(result)
-    })
+    addressCreator.generateBTCAddress()
+        .then((result) => {
+            res.json(result)
+        })
+        .catch((error) => {
+            res.json({
+                error
+            })
+        });
 });
 
 app.post('/neweth', (req, res) => {
 	res.json({
         error: 'temporary disabled'
-    }
-    // addressCreator.generateETHAddress()
-	);
+    });
 });
 
 app.post('/btcbalance', (req, res) => {
@@ -32,11 +36,17 @@ app.post('/btcbalance', (req, res) => {
         res.json({
             error: 'bitgo btcWalletId must be provided'
         })
+    } else {
+        addressCreator.getBTCWalletInfo(btcWalletId)
+            .then((result) => {
+                res.json(result)
+            })
+            .catch((error) => {
+                res.json({
+                    error
+                })
+            });
     }
-
-    addressCreator.getBTCWalletInfo(btcWalletId).then( function (result)  {
-        res.json(result)
-    })
 });
 
 app.listen(port, () => {
