@@ -12,6 +12,7 @@
   "author": "Oleksandr Kovalov",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "bitcoinjs-lib": "^4.0.2",

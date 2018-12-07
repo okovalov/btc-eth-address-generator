@@ -49,6 +49,26 @@ app.post('/btcbalance', (req, res) => {
     }
 });
 
+app.post('/ethbalance', (req, res) => {
+    const ethWalletId = req.body.ethWalletId
+
+    if (!ethWalletId) {
+        res.json({
+            error: 'bitgo ethWalletId must be provided'
+        })
+    } else {
+        addressCreator.getETHWalletInfo(ethWalletId)
+            .then((result) => {
+                res.json(result)
+            })
+            .catch((error) => {
+                res.json({
+                    error
+                })
+            });
+    }
+});
+
 app.listen(port, () => {
 	console.log(`Listening on port ${port}...`)
 })
