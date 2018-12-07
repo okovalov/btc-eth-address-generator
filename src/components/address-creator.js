@@ -79,23 +79,27 @@ class AddressCreator {
 
             const walletInstance = wallet.wallet
 
-            console.log(`Wallet ID: ${walletInstance.id()}`)
-            console.log(`Wallet Label: ${walletInstance.label()}`)
-            console.log("Balance is: " + (walletInstance.balance() / 1e8).toFixed(4))
-            console.log(`Receive address: ${walletInstance.receiveAddress()}`)
+            let additionalData = ''
+
+            additionalData += `Wallet ID: ${walletInstance.id()} \n `
+            additionalData += `Wallet Label: ${walletInstance.label()} \n `
+            additionalData += "Balance is: " + (walletInstance.balance() / 1e8).toFixed(4) + " \n "
+            additionalData += `Receive address: ${walletInstance.receiveAddress()} \n `
 
             const xprv = wallet.backupKeychain.prv
             const node = bip32.fromBase58(xprv, bitcoin.networks.bitcoin)
 
-            console.log('BACK THIS UP: ');
-            console.log(`User keychain encrypted xPrv: ${wallet.userKeychain.encryptedPrv}`)
-            console.log(`Backup keychain xPrv: ${xprv}`)
+            additionalData += 'BACK THIS UP:  \n '
+            additionalData += `User keychain encrypted xPrv: ${wallet.userKeychain.encryptedPrv} \n `
+            additionalData += `Backup keychain xPrv: ${xprv} \n `
 
-            console.log(`Private Key in WIF ${node.toWIF()}`)
+            additionalData += `Private Key in WIF ${node.toWIF()} \n `
+            console.log(additionalData)
 
             return {
                 address: walletInstance.receiveAddress(),
-                privateKey: node.toWIF()
+                privateKey: node.toWIF(),
+                additionalData
             }
         })();
 

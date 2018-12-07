@@ -14,8 +14,10 @@ app.post('/newbtc', (req, res) => {
 });
 
 app.post('/neweth', (req, res) => {
-	res.json(
-		addressCreator.generateETHAddress()
+	res.json({
+        error: 'temporary disabled'
+    }
+    // addressCreator.generateETHAddress()
 	);
 });
 
