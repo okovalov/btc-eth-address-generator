@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+    "build2": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+    "build": "rimraf .dist/ && babel ./src --out-dir ./dist --copy-files",
     "start": "npm run build && node dist/src/index.js 3000",
     "debug": "nodemon src/index.js --exec babel-node 3000"
   },
@@ -27,5 +28,13 @@
   },
   "devDependencies": {
     "nodemon": "^1.18.4"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ],
+    "plugins": [
+      "transform-class-properties"
+    ]
   }
 }

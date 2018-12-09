@@ -69,6 +69,16 @@ app.post('/ethbalance', (req, res) => {
     }
 });
 
+app.get('/', function(req, res) {
+    res.send({
+        "Output": "Hello World!"
+    });
+});
+
+
 app.listen(port, () => {
 	console.log(`Listening on port ${port}...`)
 })
+
+module.exports = app
+
