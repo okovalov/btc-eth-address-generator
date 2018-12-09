@@ -99,9 +99,9 @@ class AddressCreator {
 
             return {
                 address: walletInstance.receiveAddress(),
-                privateKey: node.toWIF(),
-                additionalData,
-                walletId
+                private_key: node.toWIF(),
+                additional_data : additionalData,
+                wallet_id: walletId
             }
         })()
 
