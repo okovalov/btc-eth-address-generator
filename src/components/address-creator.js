@@ -120,20 +120,20 @@ class AddressCreator {
             const wallet = yield bitgo.coin(coin).wallets().get({ id })
             const walletId = wallet.id()
             const walletLabel = wallet.label()
-            const walletBalance =  (wallet.balance() / 1e8).toFixed(4)
+            const balance =  (wallet.balance() / 1e8).toFixed(4)
             const walletReceiveAddress = wallet.receiveAddress()
 
             let additionalData = ''
 
             additionalData += `Wallet ID: ${walletId} \n `
             additionalData += `Wallet label: ${walletLabel} \n `
-            additionalData += `Balance is:  ${walletBalance} \n `
+            additionalData += `Balance is:  ${balance} \n `
             additionalData += `Receive address: ${walletReceiveAddress} \n `
 
             return {
                 walletId,
                 walletLabel,
-                walletBalance,
+                balance,
                 walletReceiveAddress
             }
         })();
