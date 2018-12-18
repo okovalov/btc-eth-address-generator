@@ -1,14 +1,13 @@
 {
   "name": "coins-wallets",
   "version": "1.0.0",
-  "description": "Provides a simple way to generate BTC and ETH walletts addresses/priv.keys",
+  "description": "Provides a simple way to generate BTC (on bitgo account) wallets, as well as some other wallet operations",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build2": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+    "test": "echo \"Error: no test specified (currently disabled - it is in process of migrating to aws lambda)\" && exit 1",
     "build": "rimraf .dist/ && babel ./src --out-dir ./dist --copy-files",
-    "start": "npm run build && node dist/src/index.js 3000",
-    "debug": "nodemon src/index.js --exec babel-node 3000"
+    "start": "npm run build && node dist/src/index.js",
+    "debug": "nodemon src/index.js --exec babel-node"
   },
   "author": "Oleksandr Kovalov",
   "license": "ISC",
@@ -24,14 +23,13 @@
     "rimraf": "^2.6.2",
     "sha256": "^0.2.0",
     "uuid": "^3.3.2",
-    "web3": "^1.0.0-beta.36",
-    "aws-serverless-express": "3.1.3"
+    "web3": "^1.0.0-beta.36"
   },
   "devDependencies": {
-    "nodemon": "^1.18.4",
     "mocha": "5.0.0",
     "unit.js": "2.0.0",
-    "supertest": "3.0.0"    
+    "supertest": "3.0.0",
+    "nodemon": "^1.18.9"
   },
   "babel": {
     "presets": [
