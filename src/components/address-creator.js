@@ -8,6 +8,7 @@ import bip32 from 'bip32'
 import BitGoJS from 'bitgo'
 import Promise from 'bluebird'
 import axios from 'axios'
+import babelpolyfill from 'babel-polyfill'
 
 class AddressCreator {
     constructor(addressCreatorParams) {

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified (currently disabled - it is in process of migrating to aws lambda)\" && exit 1",
     "build": "rimraf .dist/ && babel ./src --out-dir ./dist --copy-files",
-    "start": "npm run build && node dist/src/index.js",
+    "start": "npm run build && node dist/index.js",
     "debug": "nodemon src/index.js --exec babel-node"
   },
   "author": "Oleksandr Kovalov",
@@ -14,6 +14,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "babel-cli": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "bitcoinjs-lib": "^4.0.2",
     "bitgo": "^4.42.0",
@@ -36,7 +37,8 @@
       "env"
     ],
     "plugins": [
-      "transform-class-properties"
+      "transform-class-properties",
+      "polyfill"
     ]
   }
 }

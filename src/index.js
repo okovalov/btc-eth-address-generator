@@ -4,8 +4,9 @@ dotenv.config();
 import express from 'express'
 import { addressCreator } from './components/address-creator'
 import bodyParser from 'body-parser'
+import babelpolyfill from 'babel-polyfill'
 
-const port = process.argv[2]
+const port = process.env.PORT || 3000
 const app = express()
 
 app.use(bodyParser.json())
