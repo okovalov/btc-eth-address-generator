@@ -38,7 +38,7 @@ app.post('/btcbalance', (req, res) => {
             error: 'bitgo btcWalletId must be provided'
         })
     } else {
-        addressCreator.getBTCWalletInfo(btcWalletId)
+        addressCreator.getBTCWalletTransactionSum(btcWalletId)
             .then((result) => {
                 res.json(result)
             })
@@ -58,7 +58,7 @@ app.post('/ethbalance', (req, res) => {
             error: 'bitgo ethWalletId must be provided'
         })
     } else {
-        addressCreator.getETHWalletInfo(ethWalletId)
+        addressCreator.getETHWalletTransactionsSum(ethWalletId)
             .then((result) => {
                 res.json(result)
             })
