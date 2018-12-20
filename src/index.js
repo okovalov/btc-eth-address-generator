@@ -58,7 +58,7 @@ app.post('/ethbalance', (req, res) => {
             error: 'bitgo ethWalletId must be provided'
         })
     } else {
-        addressCreator.getETHWalletInfo(ethWalletId)
+        addressCreator.getETHWalletTransactionsSum(ethWalletId)
             .then((result) => {
                 res.json(result)
             })

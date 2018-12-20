@@ -173,6 +173,50 @@ class AddressCreator {
         return promise
     }
 
+    getETHWalletTransactionsSum(ethWalletId) {
+        const accessToken = this.ethScanToken
+
+        const promise = Promise.coroutine(function *() {
+            const params = {
+                module: 'account',
+                action: 'txlist',
+                startblock: 0,
+                endblock: 99999999,
+                apikey: accessToken,
+                address: ethWalletId
+            }
+
+            const ethScanResponse = yield axios.get('https://api.etherscan.io/api', {params})
+
+            if (ethScanResponse.data.message === 'OK') {
+                const balance = ethScanResponse.data.result
+                    .reduce((total, transaction) => {
+                        const incomingTransaction = (transaction.to === ethWalletId.toLowerCase() )
+                        const noError = parseInt(transaction.isError) === 0
+                        const confirmed = parseInt(transaction.confirmations) > 0
+                        const value = parseFloat(parseInt(transaction.value) * 0.000000000000000001)
+
+                        if (incomingTransaction && noError && confirmed && value > 0) {
+                            total.push(value)
+                        }
+                        return total
+                    }, [])
+                    .reduce((total, value) => total + value)
+
+                return {
+                    ethWalletId,
+                    balance
+                }
+            }
+
+            return {
+                error: ethScanResponse.data
+            }
+        })()
+
+        return promise
+    }
+
     getEntropy() {
         return  uuid().split('-').join('')
     }
