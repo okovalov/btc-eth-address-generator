@@ -142,6 +142,64 @@ class AddressCreator {
         return promise
     }
 
+    getBTCWalletTransactionSum(btcWalletId) {
+        const bitgo = new this.bitGoJs.BitGo({ env: this.bitGoEnv })
+        const coin = this.bitGoCoin
+        const accessToken = this.bitGoToken
+
+        const promise = Promise.coroutine(function *() {
+            bitgo.authenticateWithAccessToken({ accessToken })
+
+            const id = btcWalletId
+            const wallet = yield bitgo.coin(coin).wallets().get({ id })
+            const walletId = wallet.id()
+            const walletLabel = wallet.label()
+            let balance =  0
+            const walletReceiveAddress = wallet.receiveAddress()
+
+            const transfers = yield wallet.transfers()
+
+            const incomingTransfers = transfers.transfers
+                .reduce((total, transfer) => {
+                    console.log(transfer.type , transfer.confirmations, transfer.state, transfer.value)
+                    const incomingTransaction = (transfer.type === "receive")
+                    const confirmed = parseInt(transfer.confirmations) > 0
+                    const noError = transfer.state === "confirmed"
+                    const value = parseFloat(transfer.value)
+
+                    if (incomingTransaction && noError && confirmed && value > 0) {
+                        total.push(value)
+                    }
+
+                    return total
+                }, [])
+
+            if (incomingTransfers.length > 0) {
+                balance = incomingTransfers.reduce((total, value) => {
+                    return total + value
+                })
+
+                balance = (balance / 1e8).toFixed(4)
+            }
+
+            let additionalData = ''
+
+            additionalData += `Wallet ID: ${walletId} \n `
+            additionalData += `Wallet label: ${walletLabel} \n `
+            additionalData += `Balance is:  ${balance} \n `
+            additionalData += `Receive address: ${walletReceiveAddress} \n `
+
+            return {
+                walletId,
+                walletLabel,
+                balance,
+                walletReceiveAddress
+            }
+        })();
+
+        return promise
+    }
+
     getETHWalletInfo(ethWalletId) {
         const accessToken = this.ethScanToken
 
@@ -189,7 +247,9 @@ class AddressCreator {
             const ethScanResponse = yield axios.get('https://api.etherscan.io/api', {params})
 
             if (ethScanResponse.data.message === 'OK') {
-                const balance = ethScanResponse.data.result
+                let balance = 0
+
+                const incomingTransaction = ethScanResponse.data.result
                     .reduce((total, transaction) => {
                         const incomingTransaction = (transaction.to === ethWalletId.toLowerCase() )
                         const noError = parseInt(transaction.isError) === 0
@@ -201,7 +261,10 @@ class AddressCreator {
                         }
                         return total
                     }, [])
-                    .reduce((total, value) => total + value)
+
+                if (incomingTransaction.length > 0) {
+                    balance = incomingTransaction.reduce((total, value) => total + value)
+                }
 
                 return {
                     ethWalletId,
