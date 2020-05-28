@@ -1,6 +1,6 @@
 {
   "name": "coins-wallets",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Provides a simple way to generate BTC (on bitgo account) wallets, as well as some other wallet operations",
   "main": "index.js",
   "scripts": {
@@ -33,12 +33,7 @@
     "nodemon": "^1.18.9"
   },
   "babel": {
-    "presets": [
-      "env"
-    ],
-    "plugins": [
-      "transform-class-properties",
-      "polyfill"
-    ]
+    "presets": ["env"],
+    "plugins": ["transform-class-properties", "polyfill"]
   }
 }
